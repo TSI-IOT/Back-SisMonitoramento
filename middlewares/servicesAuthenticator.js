@@ -12,7 +12,7 @@ module.exports = async (request, response, next) => {
         }
         const decodedToken = await jwt.verify(token, config.get('jwtSecret'));
         const user = await findUserById(decodedToken.user.id);
-        require.user = user;
+        request.user = user;
         next();
 
     } catch (e) {

@@ -1,5 +1,5 @@
 {
-  "httpServerPort" : "5000",
+  "serverPort" : "5000",
   "mongoURI": "mongodb://iot-tsi:bPO204NONaUnNRRz@cluster0-shard-00-00-dhsit.mongodb.net:27017,cluster0-shard-00-01-dhsit.mongodb.net:27017,cluster0-shard-00-02-dhsit.mongodb.net:27017/ifms-iot?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true&w=majority",
   "jwtSecret": "ChavesFoiParaAcapuco"
 }

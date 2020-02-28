@@ -1,33 +1,47 @@
 const express = require('express');
 const config = require('config');
-const http = require('http');
+const websocket = require('./websocket/main');
 const connectDB = require('./database/connectDB');
 
-const app = express();
-const server = http.createServer(app);
+const mqtt = require('./mqtt/main');
 
-/*
-*Conectando ao banco de dados
+const app = express();
+const server = require('http').createServer(app);
+
+const PORT = process.env.PORT || config.get('serverPort');
+
+/**
+ * DB connection
  */
 connectDB();
 
-/*
-*Middlewares
+/**
+ * Middlewares
  */
 app.use(express.json({extended: false}));
 
 /**
- *Definindo rotas
+ * Routes
  */
 app.use('/user', require('./services/user/routes/main'));
 app.use('/group', require('./services/group/routes/main'));
+app.use('/device', require('./services/device/routes/main'));
 
-const PORT = process.env.PORT || config.get("httpServerPort");
+/**
+ * Socket.IO
+ */
+websocket.attach(server);
 
-
-server.listen(PORT, () => {
-    console.log("Servidor no AR! Rodando na PORTA = " + PORT)
+/**
+ * MQTT
+ */
+mqtt.server.listen(() => {
+    console.log("MQTT Server listening")
 });
 
-
-
+/**
+ * Application start
+ */
+server.listen(PORT, () => {
+    console.log('HTTP Server listening');
+});
