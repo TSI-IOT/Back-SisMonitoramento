@@ -1,4 +1,5 @@
 const mqttServer = require('mqtt-server');
+const mqttAuthenticator = require("../middlewares/mqttAuthenticator");
 
 let subscribes = {};
 
@@ -7,18 +8,18 @@ const removeDeviceFromSubscribe = (device) => {
     subscribes = subscribes.filter(function (subscribe) {
         return subscribe == device;
     });
-    console.log("TODOS OS SUBSCRIBES");
-    console.log(subscribes);
+    // console.log("TODOS OS SUBSCRIBES");
+    // console.log(subscribes);
 };
 
 const addDeviceOnSubscribe = (topic, device) => {
     subscribes[topic] = device;
-    console.log("TODOS OS SUBSCRIBES");
-    console.log(subscribes);
+    // console.log("TODOS OS SUBSCRIBES");
+    // console.log(subscribes);
 };
 
 const host = {
-    mqtt: 'tcp://192.168.1.103:1883'
+    mqtt: 'tcp://0.0.0.0:1883'
 };
 
 const options = {
@@ -29,15 +30,20 @@ const events = (device) => {
     const websocket = require('../websocket/main');
 
     device.on('connect', function (packet) {
-        console.log('NOVA CONEXÃO MQTT');
+        mqttAuthenticator(device, packet);
+    });
+
+    device.on('subscribe', (packet) => {
+        console.log("DISPOSITIVO REALIZOU UM SUBSCRIBE:");
         console.log(packet);
 
-        // DEVOLVENDO UM RECONHECIMENTO DE PUBLISH - PUBACK
-        device.connack({
-            returnCode: 0
-        }, function () {
-            console.log("CONNACK ENVIADO");
-        });
+        const subscription = packet.subscriptions[0];
+        addDeviceOnSubscribe(subscription.topic, device);
+
+        // DEVOLVENDO UM RECONHECIMENTO DE SUBSCRIBE - SUBACK
+        device.suback({returnCode: 1, granted: [packet.qos], messageId: packet.messageId}, function () {
+            console.log("SUBACK ENVIADO");
+        })
     });
 
     device.on('pingreq', function () {
@@ -64,18 +70,6 @@ const events = (device) => {
         })
     });
 
-    device.on('subscribe', (packet) => {
-        console.log("DISPOSITIVO REALIZOU UM SUBSCRIBE:");
-        console.log(packet);
-
-        const subscription = packet.subscriptions[0];
-        addDeviceOnSubscribe(subscription.topic, device);
-
-        // DEVOLVENDO UM RECONHECIMENTO DE SUBSCRIBE - SUBACK
-        device.suback({returnCode: 1, granted: [packet.qos], messageId: packet.messageId}, function () {
-            console.log("SUBACK ENVIADO");
-        })
-    });
 
     device.on('puback', (packet) => {
         console.log(packet);

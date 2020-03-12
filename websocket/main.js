@@ -39,6 +39,7 @@ websocket.on('connection',  (socket) => {
         },function () {
             console.log("Erro ao enviar dados");
         });
+
     });
 });
 
