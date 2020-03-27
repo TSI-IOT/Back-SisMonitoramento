@@ -1,6 +1,6 @@
 const Group = require('../model/Group');
 
-module.export = async (userId, page, quantityPerPage) => {
+module.exports = async (userId, page, quantityPerPage) => {
     const groups = await Group
         .find({userId:userId})
         .limit(quantityPerPage)
