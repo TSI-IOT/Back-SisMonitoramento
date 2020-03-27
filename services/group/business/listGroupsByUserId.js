@@ -1,4 +1,5 @@
-const Group = require('../model/Group')
+const Group = require('../model/Group');
+
 module.export = async (userId, page, quantityPerPage) => {
     const groups = await Group
         .find({userId:userId})
@@ -8,4 +9,4 @@ module.export = async (userId, page, quantityPerPage) => {
             date: 'asc'
         });
     return groups;
-}
+};

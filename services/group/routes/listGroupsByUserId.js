@@ -1,9 +1,9 @@
 const express = require('express');
-const authenticator = require("../../../middlewares/servicesAuthenticator");
+const servicesAuthenticator = require("../../../middlewares/servicesAuthenticator");
 const listGroupsByUserId = require('../business/listGroupsByUserId');
 const router = express.Router();
 
-router.get('/page/:page/quantityPerPage/:quantityPerPage', authenticator, async (request, response) => {
+router.get('/page/:page/quantityPerPage/:quantityPerPage', servicesAuthenticator, async (request, response) => {
     try {
         const page = new Number(request.params.page);
         const quantityPerPage = new Number(request.params.quantityPerPage);
