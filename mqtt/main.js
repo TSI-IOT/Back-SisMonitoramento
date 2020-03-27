@@ -8,17 +8,17 @@ const removeDeviceFromSubscribe = (device) => {
         return subscribe == device;
     });
     console.log("TODOS OS SUBSCRIBES");
-    console.log(subscribes);
+    console.log(subscribes.size);
 };
 
 const addDeviceOnSubscribe = (topic, device) => {
     subscribes[topic] = device;
     console.log("TODOS OS SUBSCRIBES");
-    console.log(subscribes);
+    console.log(subscribes.size);
 };
 
 const host = {
-    mqtt: 'tcp://192.168.1.103:1883'
+    mqtt: 'tcp://0.0.0.0:1883'
 };
 
 const options = {
