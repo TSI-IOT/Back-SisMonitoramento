@@ -1,6 +1,6 @@
 const express = require('express');
 const servicesAuthenticator = require("../../../middlewares/servicesAuthenticator");
-const listGroupsByUserId = require('../business/listGroupsByUserId');
+const listGroupsByUserId = require("../business/listGroupsByUserId");
 const router = express.Router();
 
 router.get('/page/:page/quantityPerPage/:quantityPerPage', servicesAuthenticator, async (request, response) => {
@@ -16,15 +16,11 @@ router.get('/page/:page/quantityPerPage/:quantityPerPage', servicesAuthenticator
                 .send();
         }
 
-        response
-            .status(200)
-            .json(groups);
+        response.status(200).json(groups);
 
     } catch (errors) {
         console.log(errors);
-        response
-            .status(400)
-            .send();
+        response.status(400).send();
     }
 });
 
