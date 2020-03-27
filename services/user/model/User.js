@@ -1,4 +1,6 @@
 const mongoose = require('mongoose');
+const userTypes = require('../enums/role');
+const userActive = require('../enums/userActive');
 
 const schema = new mongoose.Schema({
     name: {
@@ -17,6 +19,14 @@ const schema = new mongoose.Schema({
     creationDate: {
         type: Date,
         default: Date.now()
+    },
+    role: {
+        type: String,
+        enum: Object.values(userTypes)
+    },
+    userActive: {
+        type: String,
+        enum: Object.values(userActive)
     }
 });
 
