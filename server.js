@@ -2,6 +2,7 @@ const express = require('express');
 const config = require('config');
 const websocket = require('./websocket/main');
 const connectDB = require('./database/connectDB');
+const cors = require('cors');
 
 const mqtt = require('./mqtt/main');
 
@@ -18,6 +19,7 @@ connectDB();
 /**
  * Middlewares
  */
+app.use(cors());
 app.use(express.json({extended: false}));
 
 /**
