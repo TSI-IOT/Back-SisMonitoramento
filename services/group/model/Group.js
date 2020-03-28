@@ -11,6 +11,11 @@ const schema = new mongoose.Schema({
     creationDate: {
         type: Date,
         default: Date.now
+    },
+    active: {
+        type: Boolean,
+        required: true,
+        default: true
     }
 });
 

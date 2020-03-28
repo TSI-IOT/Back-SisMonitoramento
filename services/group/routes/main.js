@@ -1,7 +1,9 @@
-const createGroup = require('../routes/createGroup');
-const listGroupsByUserId = require('../routes/listGroupsByUserId');
+const createGroup = require('./createGroup');
+const listGroupsByUserId = require('./listGroupsByUserId');
+const removeGroup = require('./removeGroup');
 
 module.exports = [
     createGroup,
-    listGroupsByUserId
+    listGroupsByUserId,
+    removeGroup
 ];

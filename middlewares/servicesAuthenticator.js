@@ -13,7 +13,7 @@ module.exports = async (request, response, next) => {
         const decodedToken = await jwt.verify(token, config.get('jwtSecret'));
         const user = await findUserById(decodedToken.user.id);
 
-        if(!user.active){
+        if (!user.active) {
             throw await error([{msg: 'Usuario não autorizado!'}]);
         }
 
