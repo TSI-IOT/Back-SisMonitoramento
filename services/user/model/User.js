@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
-const userTypes = require('../enums/role');
-const userActive = require('../enums/userActive');
+const role = require('../enums/role');
 
 const schema = new mongoose.Schema({
     name: {
@@ -22,11 +21,14 @@ const schema = new mongoose.Schema({
     },
     role: {
         type: String,
-        enum: Object.values(userTypes)
+        required: true,
+        default: role.USER,
+        enum: Object.values(role)
     },
-    userActive: {
-        type: String,
-        enum: Object.values(userActive)
+    active: {
+        type: Boolean,
+        required: true,
+        default: true
     }
 });
 

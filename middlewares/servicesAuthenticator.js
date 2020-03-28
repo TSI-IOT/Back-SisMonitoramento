@@ -8,17 +8,20 @@ module.exports = async (request, response, next) => {
 
     try {
         if (!token) {
-            throw await error([{msg: 'token invalido'}]);
+            throw await error([{msg: 'Token invalido'}]);
         }
         const decodedToken = await jwt.verify(token, config.get('jwtSecret'));
         const user = await findUserById(decodedToken.user.id);
+
+        if(!user.active){
+            throw await error([{msg: 'Usuario não autorizado!'}]);
+        }
+
         request.user = user;
         next();
-
     } catch (e) {
         response
             .status(400)
-            .send()
+            .send(e)
     }
-
 };
