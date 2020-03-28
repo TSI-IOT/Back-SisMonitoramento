@@ -6,7 +6,12 @@ module.exports = async (page, quantityPerPage) => {
         .limit(quantityPerPage)
         .skip(quantityPerPage * page)
         .sort({
-            date:'asc'
+            date: 'asc'
         });
+
+    if (!users) {
+        throw await error([{msg: 'Nenhum registro encontrado!'}]);
+    }
+
     return users;
 };

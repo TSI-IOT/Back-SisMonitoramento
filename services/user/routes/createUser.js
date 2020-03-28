@@ -16,9 +16,13 @@ router.post('/', validations, async (request, response) => {
             throw errors
         }
         await createUser(data);
-        response.status(200).send();
+        response
+            .status(200)
+            .send();
     } catch (e) {
-        response.status(400).json(e);
+        response
+            .status(400)
+            .json(e);
     }
 });
 
