@@ -10,10 +10,10 @@ router.get('/id/:id', servicesAuthenticator, async (request, response) => {
         return response
             .status(200)
             .json(user);
-    } catch (errors) {
+    } catch (error) {
         response
             .status(404)
-            .json(errors);
+            .json(error);
     }
 });
 

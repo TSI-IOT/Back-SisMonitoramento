@@ -1,7 +1,9 @@
 const createDevice  = require('./createDevice');
-const listAllDevices = require('./listAllDevices');
+const findDeviceById = require('./findDeviceById');
+const removeDevice = require('./removeDevice');
 
 module.exports = [
     createDevice,
-    listAllDevices
+    findDeviceById,
+    removeDevice
 ];

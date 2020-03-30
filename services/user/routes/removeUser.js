@@ -10,10 +10,10 @@ router.delete('/id/:id', servicesAuthenticator, validationADMIN, async (request,
         response
             .status(200)
             .send()
-    } catch (e) {
+    } catch (error) {
         response
             .status(400)
-            .json(e)
+            .json(error)
     }
 });
 

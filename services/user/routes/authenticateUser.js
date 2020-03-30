@@ -18,10 +18,10 @@ router.post('/authenticate', validations, async (request, response) => {
         response
             .status(200)
             .json(credentials);
-    } catch (e) {
+    } catch (error) {
         response
             .status(400)
-            .json(e);
+            .json(error);
     }
 });
 

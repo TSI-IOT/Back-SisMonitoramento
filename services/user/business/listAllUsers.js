@@ -5,6 +5,7 @@ module.exports = async (page, quantityPerPage) => {
         .find()
         .limit(quantityPerPage)
         .skip(quantityPerPage * page)
+        .select('-password')
         .sort({
             date: 'asc'
         });

@@ -10,17 +10,13 @@ router.get('/page/:page/quantityPerPage/:quantityPerPage', servicesAuthenticator
         const user = request.user;
         const groups = await listGroupsByUserId(user.id, page, quantityPerPage);
 
-        if (!groups) {
-            return response
-                .status(404)
-                .send();
-        }
-
-        response.status(200).json(groups);
-
-    } catch (errors) {
-        console.log(errors);
-        response.status(400).send();
+        response
+            .status(200)
+            .json(groups);
+    } catch (error) {
+        response
+            .status(400)
+            .send(error);
     }
 });
 

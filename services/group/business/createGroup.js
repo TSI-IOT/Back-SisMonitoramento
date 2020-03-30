@@ -8,7 +8,7 @@ module.exports = async (data, user) => {
     const exists = await Group.exists({title: group.title, userId: group.userId});
 
     if (exists) {
-        throw await error([{msg: 'Já existe um grupo com o mesmo título cadastrado!'}]);
+       throw await error([{msg: 'Já existe um grupo com o mesmo título cadastrado!'}]);
     }
     await group.save();
 };

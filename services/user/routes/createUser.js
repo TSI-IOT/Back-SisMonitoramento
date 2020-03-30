@@ -11,18 +11,18 @@ const validations = [
 router.post('/', validations, async (request, response) => {
     const data = request.body;
     try {
-        const errors = validationResult(request);
-        if (!errors.isEmpty()) {
-            throw errors
+        const error = validationResult(request);
+        if (!error.isEmpty()) {
+            throw error
         }
         await createUser(data);
         response
             .status(200)
             .send();
-    } catch (e) {
+    } catch (error) {
         response
             .status(400)
-            .json(e);
+            .json(error);
     }
 });
 

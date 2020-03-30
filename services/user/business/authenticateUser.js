@@ -6,7 +6,7 @@ const error = require('../../../utils/error');
 
 
 module.exports = async (data) => {
-    let user = await User.findOne({email: data.email});
+    let user = await User.find({email: data.email});
 
     if (!user) {
         throw await error([{msg: 'E-mail ou senha invalidos!'}]);

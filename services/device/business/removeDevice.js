@@ -1,9 +1,18 @@
-const Device = require('../model/Device')
-module.exports = async (id) => {
-    Device.remove({id: id})
-        .then((data) => {
-            const resposta = data;
-        });
+const Device = require('../model/Device');
+const error = require('../../../utils/error');
 
-    const resposta = await Device.remove({id: id});
+
+module.exports = async (userId, id) => {
+    let device = await Device.find({id: id});
+
+    if (!device) {
+        throw await error([{msg: 'Dispositivo não cadastrado!'}]);
+    }
+
+    if (!userId === device.userId) {
+        throw await error([{msg: 'Usuario não autorizado!'}]);
+    }
+
+    device.active = false;
+    device.save();
 };

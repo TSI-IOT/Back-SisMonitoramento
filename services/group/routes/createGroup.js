@@ -11,10 +11,10 @@ router.post('/', servicesAuthenticator, async (request, response) => {
         response
             .status(200)
             .send()
-    } catch (e) {
+    } catch (error) {
         response
             .status(400)
-            .json(e)
+            .json(error)
     }
 });
 

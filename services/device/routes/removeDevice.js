@@ -1,14 +1,15 @@
 const express = require('express');
 const router = express.Router();
-const removeGroup = require('../business/removeGroup');
 const servicesAuthenticator = require('../../../middlewares/servicesAuthenticator');
-
+const removeDevice = require('../business/removeDevice');
 
 router.delete('/id/:id', servicesAuthenticator, async (request, response) => {
 
     try {
+        const id = request.params.id;
         const user = request.user;
-        await removeGroup(user.id, request.params.id);
+        await removeDevice(user.id, id);
+
         response
             .status(200)
             .send()
@@ -17,7 +18,6 @@ router.delete('/id/:id', servicesAuthenticator, async (request, response) => {
             .status(400)
             .json(error)
     }
-
 });
 
 module.exports = router;
