@@ -5,10 +5,8 @@ const servicesAuthenticator = require('../../../middlewares/servicesAuthenticato
 
 
 router.delete('/id/:id', servicesAuthenticator, async (request, response) => {
-
     try {
-        const user = request.user;
-        await removeGroup(user.id, request.params.id);
+        await removeGroup(request.user.id, request.params.id);
         response
             .status(200)
             .send()

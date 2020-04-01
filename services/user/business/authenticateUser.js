@@ -4,12 +4,15 @@ const config = require('config');
 const User = require('../model/User');
 const error = require('../../../utils/error');
 
-
 module.exports = async (data) => {
-    let user = await User.find({email: data.email});
+    let user = await User.findOne({email: data.email});
 
     if (!user) {
         throw await error([{msg: 'E-mail ou senha invalidos!'}]);
+    }
+
+    if (!user.active) {
+        throw await error([{msg: 'Conta invalida!'}]);
     }
 
     const isMatch = await bcrypt.compare(data.password, user.password);
@@ -33,7 +36,8 @@ module.exports = async (data) => {
         token: token,
         user: {
             nome: user.name,
-            email: user.email
+            email: user.email,
+            role:user.role
         }
     };
 

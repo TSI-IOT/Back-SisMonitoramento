@@ -4,10 +4,8 @@ const servicesAuthenticator = require('../../../middlewares/servicesAuthenticato
 const router = express.Router();
 
 router.post('/', servicesAuthenticator, async (request, response) => {
-    const user = request.user;
-    const data = request.body;
     try {
-        await createGroup(data, user);
+        await createGroup(request.user.id, request.body);
         response
             .status(200)
             .send()

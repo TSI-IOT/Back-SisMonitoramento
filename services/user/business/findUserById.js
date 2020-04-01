@@ -1,14 +1,17 @@
 const User = require('../model/User');
+const role = require('../enums/role');
 const error = require('../../../utils/error');
 
-module.exports = async (id) => {
+module.exports = async (userReq, id) => {
     let user = await User.findById(id).select('-password');
 
-    if(user.id != id){
+    if (!user) {
+        throw await error([{msg: 'Usuario não encontrado!'}]);
+    }
+
+    if (userReq.role !== role.ADMINISTRATOR && userReq.id !== id) {
         throw await error([{msg: 'Usuario não autorizado!'}]);
     }
-    if(!user){
-        throw await error([{msg: 'ID de Usuario invalido!'}]);
-    }
+
     return user;
 };

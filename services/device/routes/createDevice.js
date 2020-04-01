@@ -1,16 +1,12 @@
 const express = require('express');
 const servicesAuthenticator = require('../../../middlewares/servicesAuthenticator');
-const findUserById = require('../../user/business/findUserById');
 const createDevice = require('../business/createDevice');
 
 const router = express.Router();
 
-//@route    POST device
-//@desc     Create a new device
-//@access   Public
 router.post('/', servicesAuthenticator, async (request, response) => {
         try {
-            await createDevice(request.user, request.body);
+            await createDevice(request.user.id, request.body);
             response
                 .status(200)
                 .send();

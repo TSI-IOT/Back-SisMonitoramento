@@ -1,12 +1,12 @@
 const express = require('express');
 const servicesAuthenticator = require('../../../middlewares/servicesAuthenticator');
-const createTemperatureDevice = require('../business/createTemperatureDevice');
+const newPasswordDevice = require('../business/newPasswordDevice');
 
 const router = express.Router();
 
-router.post('/preset/temperature', servicesAuthenticator, async (request, response) => {
+router.put('/update/password/id/:id', servicesAuthenticator, async (request, response) => {
     try {
-        await createTemperatureDevice(request.user.id, request.body);
+        await newPasswordDevice(request.user.id, request.params.id);
         response
             .status(200)
             .send()

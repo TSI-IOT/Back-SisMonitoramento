@@ -7,9 +7,7 @@ router.get('/page/:page/quantityPerPage/:quantityPerPage', servicesAuthenticator
     try {
         const page = new Number(request.params.page);
         const quantityPerPage = new Number(request.params.quantityPerPage);
-        const user = request.user;
-        const groups = await listGroupsByUserId(user.id, page, quantityPerPage);
-
+        const groups = await listGroupsByUserId(request.user.id, page, quantityPerPage);
         response
             .status(200)
             .json(groups);

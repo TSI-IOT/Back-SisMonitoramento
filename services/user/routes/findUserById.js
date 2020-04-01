@@ -6,7 +6,7 @@ const findUserById = require('../business/findUserById');
 
 router.get('/id/:id', servicesAuthenticator, async (request, response) => {
     try {
-        const user = await findUserById(request.params.id);
+        const user = await findUserById(request.user,request.params.id);
         return response
             .status(200)
             .json(user);

@@ -7,10 +7,7 @@ router.get('/id/:id/page/:page/quantityPerPage/:quantityPerPage', servicesAuthen
     try {
         const page = new Number(request.params.page);
         const quantityPerPage = new Number(request.params.quantityPerPage);
-        const groupId = request.params.id;
-        const user = request.user;
-
-        const devices = await findDeviceById(user.id, groupId, page, quantityPerPage,);
+        const devices = await findDeviceById(request.user.id, request.params.id, page, quantityPerPage,);
 
         response
             .status(200)

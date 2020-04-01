@@ -25,7 +25,7 @@ const schema = new mongoose.Schema({
         type: String,
         enum: Object.values(unitsOfMeasurement),
         required: function () {
-            return this.deviceType == deviceTypes.ISSUER;
+            return this.deviceType === deviceTypes.ISSUER;
         }
     },
     date: {

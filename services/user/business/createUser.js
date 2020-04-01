@@ -3,9 +3,9 @@ const bcrypt = require('bcryptjs');
 const error = require('../../../utils/error');
 
 module.exports = async (data) => {
-    let user = await User.find({email: data.email});
+    let exists = await User.exists({email: data.email});
 
-    if (user) {
+    if (exists) {
         throw  await error([{msg: 'Usuário já registrado'}]);
     }
 
@@ -15,6 +15,5 @@ module.exports = async (data) => {
     const salt = await bcrypt.genSalt(10);
     user.password = await bcrypt.hash(user.password, salt);
     user.save();
-
 
 };

@@ -4,12 +4,8 @@ const servicesAuthenticator = require('../../../middlewares/servicesAuthenticato
 const removeDevice = require('../business/removeDevice');
 
 router.delete('/id/:id', servicesAuthenticator, async (request, response) => {
-
     try {
-        const id = request.params.id;
-        const user = request.user;
-        await removeDevice(user.id, id);
-
+        await removeDevice(request.user.id,  request.params.id);
         response
             .status(200)
             .send()
