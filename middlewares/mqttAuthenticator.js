@@ -1,5 +1,5 @@
 const bcrypt = require('bcryptjs');
-const findDeviceById = require('../services/device/business/findDeviceById');
+const findDeviceById = require('../services/device/business/listDevicesByGroupId');
 const error = require('../utils/error');
 
 module.exports = async (device, packet) => {

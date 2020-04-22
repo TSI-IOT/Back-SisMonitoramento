@@ -35,7 +35,7 @@ module.exports = async (data) => {
     const credentials = {
         token: token,
         user: {
-            nome: user.name,
+            name: user.name,
             email: user.email,
             role:user.role
         }
