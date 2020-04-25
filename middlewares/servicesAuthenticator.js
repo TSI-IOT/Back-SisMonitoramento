@@ -15,7 +15,7 @@ module.exports = async (request, response, next) => {
         const user = await User.findById(decodedToken.user.id);
 
         if (!user.active) {
-            throw await error([{msg: 'Usuario não autorizado!'}]);
+            throw await error([{msg: 'Usuario nãoo autorizado!'}]);
         }
 
         request.user = user;

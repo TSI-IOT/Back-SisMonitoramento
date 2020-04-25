@@ -4,7 +4,7 @@ const createHumidityDevice = require('./createHumidityDevice');
 const listDevicesByGroupId = require('./listDevicesByGroupId');
 const removeDevice = require('./removeDevice');
 const newPasswordDevice = require('./newPasswordDevice');
-
+const findDeviceById = require('./findDeviceById');
 
 module.exports = [
     createDevice,
@@ -12,5 +12,6 @@ module.exports = [
     createHumidityDevice,
     listDevicesByGroupId,
     removeDevice,
-    newPasswordDevice
+    newPasswordDevice,
+    findDeviceById
 ];

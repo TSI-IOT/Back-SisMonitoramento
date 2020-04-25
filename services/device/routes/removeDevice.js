@@ -3,9 +3,9 @@ const router = express.Router();
 const servicesAuthenticator = require('../../../middlewares/servicesAuthenticator');
 const removeDevice = require('../business/removeDevice');
 
-router.delete('/id/:id', servicesAuthenticator, async (request, response) => {
+router.delete('/name/:name/id/:id', servicesAuthenticator, async (request, response) => {
     try {
-        await removeDevice(request.user.id,  request.params.id);
+        await removeDevice(request.params.name, request.params.id, request.user.id);
         response
             .status(200)
             .send()

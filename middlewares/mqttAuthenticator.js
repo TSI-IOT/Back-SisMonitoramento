@@ -1,5 +1,6 @@
-const bcrypt = require('bcryptjs');
-const findDeviceById = require('../services/device/business/listDevicesByGroupId');
+const cryptoJS = require('crypto-js');
+const config = require('config');
+const Device = require('../services/device/model/Device');
 const error = require('../utils/error');
 
 module.exports = async (device, packet) => {
@@ -7,15 +8,17 @@ module.exports = async (device, packet) => {
     const password = packet.password.toString();
 
     try {
-        const dev = await findDeviceById(username);
+        const dev = await Device.findOne({_id: username, active: true});
 
         if (!dev) {
-            throw await error([{msg: 'Id ou senha invalidos'}]);
+            throw await error([{msg: 'Id ou Senha invalidos'}]);
         }
 
-        const isMatch = await bcrypt.compare(password, dev.password);
+        const senha = await cryptoJS.AES.decrypt(dev.password, config.get('cryptoJSSecret'));
+        const senhaDescriptografada = await senha.toString(cryptoJS.enc.Utf8);
 
-        if (!isMatch) {
+
+        if (password != senhaDescriptografada) {
             throw await error([{msg: 'Id ou senha invalidos'}]);
         }
 

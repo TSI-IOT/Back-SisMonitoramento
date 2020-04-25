@@ -23,9 +23,10 @@ module.exports = async (data) => {
 
     const payload = {
         user: {
-            id: user.id
+            id: user.id,
         }
     };
+
     const options = {
         //  expiresIn: 86400
     };

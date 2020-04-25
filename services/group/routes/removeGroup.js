@@ -4,9 +4,9 @@ const removeGroup = require('../business/removeGroup');
 const servicesAuthenticator = require('../../../middlewares/servicesAuthenticator');
 
 
-router.delete('/id/:id', servicesAuthenticator, async (request, response) => {
+router.delete('/title/:title/id/:id', servicesAuthenticator, async (request, response) => {
     try {
-        await removeGroup(request.user.id, request.params.id);
+        await removeGroup(request.user.id, request.params.title, request.params.id);
         response
             .status(200)
             .send()

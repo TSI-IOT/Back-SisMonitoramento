@@ -23,6 +23,7 @@ websocket.on('connection',  (socket) => {
             return;
         }
 
+
         const obj = {
             cmd: 'publish',
             retain: false,

@@ -5,17 +5,18 @@ let subscribes = {};
 
 const removeDeviceFromSubscribe = (device) => {
     device.destroy();
-    subscribes = subscribes.filter(function (subscribe) {
-        return subscribe == device;
-    });
-    // console.log("TODOS OS SUBSCRIBES");
-    // console.log(subscribes);
+    for (key in subscribes) {
+        if (subscribes[key] == device) {
+            delete subscribes[key];
+        }
+    }
 };
 
 const addDeviceOnSubscribe = (topic, device) => {
     subscribes[topic] = device;
     // console.log("TODOS OS SUBSCRIBES");
     // console.log(subscribes);
+    console.log(Object.keys(subscribes));
 };
 
 const host = {

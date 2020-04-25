@@ -7,6 +7,7 @@ module.exports = (socket, next) => {
     try {
         const decodedToken = jwt.verify(token, config.get("jwtSecret"));
         const user = decodedToken.user;
+        const u = user.toString();
         socket.handshake.query.user = user;
         return next();
     } catch (e) {
