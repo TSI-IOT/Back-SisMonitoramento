@@ -31,7 +31,9 @@ const events = (device) => {
     const websocket = require('../websocket/main');
 
     device.on('connect', function (packet) {
+        console.log(packet);
         mqttAuthenticator(device, packet);
+
     });
 
     device.on('subscribe', (packet) => {
@@ -42,7 +44,13 @@ const events = (device) => {
         addDeviceOnSubscribe(subscription.topic, device);
 
         // DEVOLVENDO UM RECONHECIMENTO DE SUBSCRIBE - SUBACK
-        device.suback({returnCode: 1, granted: [packet.qos], messageId: packet.messageId}, function () {
+        const subackPacket = {
+            returnCode: (packet.qos == 0? 0:(packet.qos == 1? 1:2)), //0 caso qos=0, 1 caso qos=1, 2 caso qos=2
+            granted: [packet.qos],
+            messageId: packet.messageId
+        }
+
+        device.suback(subackPacket, function () {
             console.log("SUBACK ENVIADO");
         })
     });
@@ -66,9 +74,15 @@ const events = (device) => {
         websocket.sockets.in(groupId).emit(deviceId, JSON.parse(payload));
 
         // DEVOLVENDO UM RECONHECIMENTO DE PUBLISH - PUBACK
-        device.puback({messageId: 1}, function () {
-            console.log("PUBACK ENVIADO");
-        })
+        if(packet.qos == 1 || packet.qos == 2) {
+            const pubackPacket = {
+                messageId: packet.messageId
+            }
+
+            device.puback(pubackPacket, function () {
+                console.log("PUBACK ENVIADO");
+            })
+        }
     });
 
 
