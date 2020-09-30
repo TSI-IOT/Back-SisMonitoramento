@@ -16,13 +16,13 @@ websocket.on('connection',  (socket) => {
     console.log("Novo usuario escutando no grupo: " + socket.handshake.query.groupId);
 
     socket.on('publish', (data) => {
+        console.log(data.deviceId);
         const device = mqtt.subscribes[data.deviceId];
 
         if(!device){
             console.log("Dispositivo/Topico inexistente");
             return;
         }
-
 
         const obj = {
             cmd: 'publish',

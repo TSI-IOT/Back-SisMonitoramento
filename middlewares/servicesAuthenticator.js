@@ -8,6 +8,7 @@ module.exports = async (request, response, next) => {
     const token = request.header('x-auth-token');
 
     try {
+        console.log("TOKEN  " + token);
         if (!token) {
             throw await error([{msg: 'Token invalido'}]);
         }
@@ -15,7 +16,7 @@ module.exports = async (request, response, next) => {
         const user = await User.findById(decodedToken.user.id);
 
         if (!user.active) {
-            throw await error([{msg: 'Usuario nãoo autorizado!'}]);
+            throw await error([{msg: 'Usuario não autorizado!'}]);
         }
 
         request.user = user;
