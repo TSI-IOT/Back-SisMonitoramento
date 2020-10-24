@@ -8,7 +8,8 @@ module.exports = async (userId, data) => {
     let exists = await Device.exists({
         userId: userId,
         groupId: data.groupId,
-        name: data.name
+        name: data.name,
+        active: true
     });
 
     if (exists) {
