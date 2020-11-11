@@ -9,7 +9,7 @@ module.exports = async (userId, data) => {
         userId: userId,
         groupId: data.groupId,
         name: data.name,
-        role: true
+        active: true
     });
 
     if (exists) {
